@@ -11,7 +11,7 @@ def run_linear_regression():
     features = data.get('features')
     labels = data.get('labels')
     learning_rate = data.get('learning_rate', 0.01)
-    epochs = data.get('epochs', 1000)
+    epochs = data.get('epochs', 1000) 
 
     if features is None or labels is None:
         return jsonify(error="Missing required parameters."), 400

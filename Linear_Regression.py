@@ -20,7 +20,7 @@ def linear_regression(features, labels, learning_rate=0.01, epochs = 1000):
         #if epoch <= 10:
         #if epoch <= 50:
         #if epoch > 50:
-        i = random.randint(0, len(features)-1)
+        i = random.randint(0, len(features)-1) 
         num_rooms = features[i]
         price = labels[i]
         # Uncomment any of the 2 following lines to use a different trick
