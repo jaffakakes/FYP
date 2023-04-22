@@ -4,9 +4,10 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 from sklearn.pipeline import make_pipeline
 from sklearn.model_selection import train_test_split
+from flask_cors import CORS
 
 app = Flask(__name__)
-
+CORS(app)
 def get_polynomial_regression_formula(polynomial_regression):
     coef = polynomial_regression.named_steps['linearregression'].coef_
     intercept = polynomial_regression.named_steps['linearregression'].intercept_
