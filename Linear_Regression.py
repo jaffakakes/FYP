@@ -10,11 +10,11 @@ from sklearn.metrics import mean_squared_error
 # We set the random seed in order to always get the same results.
 np.random.seed(42)
 
-# def square_trick(base_price, price_per_mileage, mileage, price, learning_rate):
-#     predicted_price = base_price + price_per_mileage * mileage
-#     price_per_mileage += learning_rate * mileage * (price - predicted_price)
-#     base_price += learning_rate * (price - predicted_price)
-#     return price_per_mileage, base_price
+def square_trick(base_price, price_per_mileage, mileage, price, learning_rate):
+    predicted_price = base_price + price_per_mileage * mileage
+    price_per_mileage += learning_rate * mileage * (price - predicted_price)
+    base_price += learning_rate * (price - predicted_price)
+    return price_per_mileage, base_price
 
 
 
@@ -33,6 +33,38 @@ np.random.seed(42)
 
 #     return price_per_mileage, base_price
 
+def linear_regression(mileage, cost, learning_rate=0.1, epochs=1000):
+    price_per_mileage = np.random.random()
+    base_price = np.random.random()
+    n = len(mileage)
+    
+    # Normalize the features
+    mileage = (mileage - np.mean(mileage)) / np.std(mileage)
+    
+    for epoch in range(epochs):
+        gradient_base_price = 0
+        gradient_price_per_mileage = 0
+        
+        for i in range(n):
+            current_mileage = mileage[i]
+            current_cost = cost[i]
+            
+            predicted_price = base_price + price_per_mileage * current_mileage
+            
+            gradient_base_price += (2/n) * (predicted_price - current_cost)
+            gradient_price_per_mileage += (2/n) * (predicted_price - current_cost) * current_mileage
+            
+        base_price -= learning_rate * gradient_base_price
+        price_per_mileage -= learning_rate * gradient_price_per_mileage
+
+        # Learning rate decay
+        learning_rate = learning_rate * 0.99
+
+        # Debugging print statements
+        print(f'Epoch: {epoch}, Mileage: {current_mileage}, Cost: {current_cost}, Price per mileage: {price_per_mileage}, Base price: {base_price}')
+
+    return price_per_mileage, base_price
+
 
 def get_polynomial_regression_formula(polynomial_regression):
     coef = polynomial_regression.named_steps['linearregression'].coef_
@@ -45,7 +77,7 @@ polynomial_regression = make_pipeline(
     LinearRegression()
 )
 
-# Train the model
+
 
 
 # Get the intercept and coefficients
