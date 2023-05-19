@@ -21,7 +21,7 @@ def run_polynomial_regression():
 def run_linear_regression():
     price_per_mileage, base_price = linear_regression()
 
-    return jsonify(price_per_mileage=price_per_mileage, base_price=base_price)
+    return jsonify(price_per_mileage=price_per_mileage.tolist(), base_price=base_price.tolist())
 
 if __name__ == '__main__':
     app.run(debug=True)
